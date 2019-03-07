@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+	<!-- head -->
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127099913-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			
+			function gtag() {
+			    dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			
+			gtag('config', 'UA-127099913-1');
+		</script>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Ivan Sepulveda</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+		<link rel="stylesheet" href="/css/bulma.min.css">
+		<link rel="stylesheet" href="/css/all.min.css">
+		<link rel="stylesheet" href="/css/highlight.css">
+		<link rel="stylesheet" href="/css/custom.css">
+	</head>
+	<!-- body -->
+	<body>
+		<!-- header-->
+		<section class="hero is-dark is-bold hidden-print">
+			<div class="is-7 has-text-grey" style="position: absolute; top: 0; right: 1em;">
+			</div>
+			<div class="hero-body">
+				<div class="container">
+					<h1 class="title" align="center">
+						Using a Monte Carlo Script to 
+						<br>
+						Derive Electron Energy Distribution Function
+					</h1>
+					<nav class="level">
+						<div class="level-left">
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted is-outlined" href="/index.html">
+								<i class="fas fa-home"></i>&nbsp;Home
+								</a>
+							</div>
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted  is-inverted is-outlined " href="https://static1.squarespace.com/static/55388145e4b07179e5b90563/t/5c11bf9e03ce6403d4c721cf/1544667038924/Ivan+Sepulveda%27s+Resume+12.18.pdf" target="_blank">
+								<i class="fas fa-calendar-alt"></i>&nbsp;Resume/CV
+								</a>
+							</div>
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted  is-inverted  " href="http://www.iesepulveda.com/current-and-completed" target="_blank">
+								<i class="fas fa-file-alt"></i>&nbsp;Projects
+								</a>
+							</div>
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted  is-inverted is-outlined " href="http://www.iesepulveda.com/writing-photography" target="_blank">
+								<i class="fas fa-book"></i>&nbsp;Writing &amp; Photography
+								</a>
+							</div>
+						</div>
+						<div class="level-right">
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted is-outlined" href="https://www.linkedin.com/in/ivansepulveda/" target="_blank">
+								<i class="fab fa-github-alt"></i>&nbsp;LinkedIn
+								</a>
+							</div>
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted is-outlined" href="https://github.com/ivan-sepulveda" target="_blank">
+								<i class="fab fa-github-alt"></i>&nbsp;Github
+								</a>
+							</div>
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted is-outlined" href="https://medium.com/@ivanthequant" target="_blank">
+								<i class="fab fa-github-alt"></i>&nbsp;Medium
+								</a>
+							</div>
+						</div>
+					</nav>
+				</div>
+				<!-- end container -->
+			</div>
+			<!-- end hero -->
+		</section>
+		<section class="section">
+		</section>
+		<div class="container">
+			<div class="content" align="left">
+				Report Layout
+				<ol>
+					<li>Introduction</li>
+					<li>
+						Theory
+						<ol>
+							<li>Plasma description</li>
+							<li>Collision Theory</li>
+							<li>Cross Sections</li>
+							<li>Interpolating Theoretical Cross Sections</li>
+							<li>Collision Frequencies</li>
+							<li>Calculating Time of Flight</li>
+						</ol>
+					</li>
+					<li>
+						Code
+						<ol>
+							<li>three.one</li>
+						</ol>
+					</li>
+					<li>
+						Results
+						<ol>
+							<li>Electron Energy Distribution Function</li>
+							<li>Comparison to Similar Studies</li>
+							<li>Applications and Areas for Improvement</li>
+						</ol>
+					</li>
+				</ol>
+				<h3>1.Introduction</h3>
+				Over the past handful of decades the semiconductor industry has consistently miniaturized computer chips but in recent times seems to have hit their limit. The process of using high-speed plasma discharges to create these integrated circuits is known as plasma etching. By studying the properties of plasma, one can hope to be able to improve plasma etching process.
+				<hr style="height:1pt; visibility:hidden;" />
+				The electron energy distribution function is one of the key properties in understanding low- temperature plasma. One could attempt to experimentally measure the properties of a plasma by inserting a certain tool known as the Langmuir probe. Unfortunately, as soon as the probe is inserted, the properties of the plasma would change.
+				<hr style="height:1pt; visibility:hidden;" />
+				Theoretically, plasma properties could instead be measured using numerical simulations. Many would initially attempt to solve the Boltzmann equation. Doing so would require variables including number of electron density within the plasma, the element which composes the plasma as well as density of atoms within the plasma, and what types of collisions are possible (i.e. purely elastic, ionization, excitation, etc.).
+				<hr style="height:1pt; visibility:hidden;" />
+				Another effective approach would be to create a Monte-Carlo simulation. A Monte-Carlo simulation is a method of approximately solving mathematical and physics problems by the simulation of random qualities. In our study we simulate the propagation of electrons through argon plasma. The electrons follow the electric field lines but their collisions with Argon atoms are somewhat random: collision angles as well as the types of collisions it experiences are based on probabilities from previously measured cross sections.
+				<hr style="height:1pt; visibility:hidden;" />
+				First, this report will cover our theoretical calculations and approach. Afterwards, we will go over the logical and analytical assumptions and calculations and how they are calculated and implemented in the script. Subsequently leading us to explain results obtain from running the script under different conditions by altering variables including propagations allowed and magnitude of the electric field applied. Finally, we will analyze our results and draw upon conclusions and whether or not they agree with both our theory and results measured from outside sources.
+				<h3>2.Theory</h3>
+				<h3>2.1 Plasma description</h3>
+				2.Theory
+				2.1 Plasma description
+				The word ”plasma” comes from a Greek word “πλασμα“ which means ”mold” and it describes the property of ionized gas to follow the shape of vessel where it was generated. To understand the concept of plasma we first start with the description of the gas consisting of mostly neutral particles (atoms and molecules). Such gas can be made mostly of atoms (inert gases like neon or argon) or of molecules (O2, H2) or even mixtures like air. One of the main characteristics of the neutral gas is that all particles have the same macroscopic properties (energy, temperature, velocity, density...).
+				<hr style="height:1pt; visibility:hidden;" />
+				When the gas is heated, electrons in atoms and molecules can gain enough energy to break the atomic/molecular bonds and free themselves. This process commonly known as ionization. When only one electron is stripped from the atom/molecule, the atom/molecule is singly ionized, when two electrons are stripped the particle is doubly ionized and so forth. If the electron doesn’t gain enough energy to break the atomic/molecular bond it may jump to an empty orbital at higher energy level of the atom/molecule. This process is called excitation. Electrons cannot stay long in excited energy levels (about 10 9 s) and will radiate down to lower energy levels while emitting photons of energy equal to the energy initially gained. Electron transitions from some energy levels are not allowed by laws of quantum mechanics and these energy levels are called metastable levels. Electrons in these metastable states can go back to ground state only during the collision between two atoms/molecules through a process a known as quenching. In addition, the free electrons can also collide with atoms/molecules and either elastically scatter o↵ of the particles or ionize or excite the given particle. This heated gas consisting of neutral particles, excited particles, positive ions, negative ions, and free electrons that is overall still neutral is called plasma.
+				<hr style="height:1pt; visibility:hidden;" />
+				Plasmas heated to the temperatures higher than 10,000 K have most of their particles ionized and are called high temperature plasmas (stars, tokamak,...). These plasmas are in thermal equilibrium which means that all plasma species (electrons, ions, and neutral particles) have the same temperature (ref. H. Griem, Plasma Spectroscopy (McGraw-Hill, New York, 1964). On the other hand, each species in the low temperature, non-equilibrium plasmas (heated below 10,000 K) has different properties. The electron temperatures may reach several thousand Kelvins while heavy particles have temperatures similar to room temperature. There are ”hot” electrons that collide with plasma species and are capable of exciting and ionizing atoms and molecules, generating in that way new electrons necessary to sustain plasma system and producing a chemically-rich environment. As a consequence, non-equilibrium plasmas have a particular use in the plasma processing industry for applications to plasma cleaning and etching, or to the deposition of thin film layers. Hence, characterizing these discharges (i.e. describing the conditions for their generation, estimating parameters for optimal use, etc.) is of vital importance.
+				<hr style="height:1pt; visibility:hidden;" />
+				<h3>2.2 Collision Theory</h3>
+				<hr style="height:1pt; visibility:hidden;" />
+				In our study we simulated electron motion inside low temperature argon plasma generated by heating argon gas with radio-frequency (RF) electromagnetic (EM) waves in order to calculate the distribution of electron energies inside the plasma. We applied a DC biased voltage to our plasma in order to create an electric field in the positive x direction. Due to the applied electric field, electrons accelerated within the plasma in the direction opposite to the electric field. Based on the laws of classical mechanics (Newton’s 2nd law), we derived the 3D equations of motion of the electron:
+				<hr style="height:1pt; visibility:hidden;" />
+				where we have elementary charge e = 1.6&middot;10<sup>19</sup> C as the charge of an electron, m<sub>e</sub> = 9.1&middot;10<sup>-31</sup> kg as the mass of an electron, and a as the vector acceleration of the electron. <br/>
+				<br/>
+				In the x-direction:
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?\large&space;a_x=\frac{eE}{m_{e}}" title="\large a_x=\frac{eE}{m_{e}}" /> <br/>
+					<br/>
+					<img src="https://latex.codecogs.com/gif.latex?\large&space;v_x&space;=&space;v_{0x}&space;&plus;&space;a_x&space;t" title="\large v_x = v_{0x} + a_x t" /> <br/>
+					<br/>
+					<img src="https://latex.codecogs.com/gif.latex?\large&space;x&space;=&space;x_0&space;&plus;&space;v_{0x}&space;t&space;&plus;&space;\frac{1}{2}&space;a_x&space;t^2" title="\large x = x_0 + v_{0x} t + \frac{1}{2} a_x t^2" /> 
+				</div>
+				In the y-direction:
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?\large&space;a_y&space;=&space;0&space;\rightarrow&space;v_y&space;=&space;v_{0y}&space;=&space;const&space;\rightarrow&space;y&space;=&space;y_0&space;&plus;&space;v_{0y}t" title="\large a_y = 0 \rightarrow v_y = v_{0y} = const \rightarrow y = y_0 + v_{0y}t" /> </div>
+				In the y-direction:
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?\large&space;a_z&space;=&space;0&space;\rightarrow&space;v_z&space;=&space;v_{0z}&space;=&space;const&space;\rightarrow&space;z&space;=&space;z_0&space;&plus;&space;v_{0z}t" title="\large a_z = 0 \rightarrow v_z = v_{0z} = const \rightarrow z = z_0 + v_{0z}t" /> </div>
+				While moving inside the plasma, electrons could collide with argon atoms or with other electrons. In this study we only included electron collisions with argon atoms while the electron-electron collisions were neglected. There are two types of collisions that the electron could undergo:
+				<hr style="height:2.5pt; visibility:hidden;" />
+				<div class="indented">
+					<ul>
+						<li>Elastic collision - where the total kinetic energy of the system electron-argon atom is conserved.</li>
+						<li>Inelastic collision - where the fraction of the electron's initial kinetic energy is lost in the collision. The lost energy could be used to heat the system, deform argon atoms, ionize or excite the argon atoms etc.</li>
+					</ul>
+				</div>
+				Our simulation includes probabilities for these types of electron collisions: elastic scattering off of the argon atom, ionization or excitation of the argon atom, or no collision at all. The probability for a certain collision is calculated based on an experimentally measured cross-section for given collision. A detailed description on how we obtained the probabilities for various collisions is given in subsections below.
+				During the collision with the argon atom, electron will change its energy and velocity (magnitude and direction). We applied the conservation of momentum and total energy to find electron energy and velocity after the collision:
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?\large&space;\vec{p_e}&space;&plus;&space;\vec{p_a}&space;=&space;\vec{p_e}'&space;&plus;&space;\vec{p_a}&space;'" title="\large \vec{p_e} + \vec{p_a} = \vec{p_e}' + \vec{p_a} '" /> <br/>
+					<br/>
+					<img src="https://latex.codecogs.com/gif.latex?\large&space;E_i&space;=&space;E_f&space;&plus;&space;E_a&space;&plus;&space;\Delta&space;E_{loss}" title="\large E_i = E_f + E_a + \Delta E_{loss}" /> 
+				</div>
+				<br/>
+				<br/>
+				image <br/>
+				<br/>
+				<div align="center"> <font size="2"> Figure 2.1: Coordinate system rotated to align V<sub>i</sub> with the z-axis. φ is defined as the angle <br/>
+					made by the projection of V<sub>f</sub>on the ZY-Plane while θ is the angle between V<sub>i</sub> and V<sub>f</sub></font> 
+				</div>
+				<style type="text/css">
+					var.vector {
+					font-style : normal;
+					}
+					var.vector span {
+					margin-left: -.55em;   /* shift the arrow back over the letter */
+					vertical-align : .2em; /* tune the arrow vertical position */
+					}
+				</style>
+				where <var class="vector">p<span>&#8407;</span></var><sub>e</sub> and <var class="vector">p<span>&#8407;</span></var><sub>a</sub> are electron and atom momenta after the collision, E<sub>i</sub> is electron initial kinetic energy, E<sub>f</sub> is electron's kinetic energy after the collision, E<sub>a</sub> is the kinetic energy of the argon atom after the collision, and ∆E<sub>loss</sub> is the energy lost during the inelastic collision (to ionize or excite the argon atom). 
+				Let's assume that the electron traveling in positive z-direction <var class="vector">v<span>&#8407;</span></var><sub>i</sub> = (0,0,1)
+				collides with the stationary argon atom and scatters at angles θ and Φ in 3D, see Fig. 1.
+				The electron velocity after the collision in spherical coordinates is given as
+				<hr style="height:1pt; visibility:hidden;" />
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?\vec{v_f}&space;=&space;v_f&space;cos&space;\phi&space;\,&space;sin&space;\theta&space;\,&space;\hat{i}&space;&plus;&space;v_f&space;sin&space;\phi&space;\,&space;sin&space;\theta&space;\,&space;\hat{j}&space;&plus;&space;v_f&space;\,&space;cos&space;\theta&space;\,&space;\hat{k}" title="\vec{v_f} = v_f cos \phi \, sin \theta \, \hat{i} + v_f sin \phi \, sin \theta \, \hat{j} + v_f \, cos \theta \, \hat{k}" /> </div>
+				<hr style="height:1pt; visibility:hidden;" />
+				<br/>
+				<br/>
+				image <br/>
+				<br/>
+				<br/>
+				<br/>
+				image <br/>
+				<br/>
+				<br/>
+				<br/>
+				image <br/>
+				<br/>
+				<br/>
+				<br/>
+				image <br/>
+				<br/>
+				The conservation of momentum will give us:
+				<hr style="height:1pt; visibility:hidden;" />
+				<div align="center">
+					<hr style="height:1pt; visibility:hidden;" />
+					<img src="https://latex.codecogs.com/gif.latex?0&space;=&space;m_e&space;v_{f}&space;cos&space;\phi&space;\,&space;sin&space;\theta&space;&plus;m_a&space;v_{ax}&space;\rightarrow&space;m_a^2&space;v_{ax}^2&space;=&space;m_e^2&space;v_{f}^2&space;cos^2&space;\phi&space;\,&space;sin^2&space;\theta" title="0 = m_e v_{f} cos \phi \, sin \theta +m_a v_{ax} \rightarrow m_a^2 v_{ax}^2 = m_e^2 v_{f}^2 cos^2 \phi \, sin^2 \theta" /> <br/>
+					<br/>
+					<img src="https://latex.codecogs.com/gif.latex?0&space;=&space;m_e&space;v_{f}&space;sin&space;\phi&space;\,&space;sin&space;\theta&space;&plus;m_a&space;v_{ay}&space;\rightarrow&space;m_a^2&space;v_{ay}^2&space;=&space;m_e^2&space;v_{f}^2&space;sin^2&space;\phi&space;\,&space;sin^2&space;\theta" title="0 = m_e v_{f} sin \phi \, sin \theta +m_a v_{ay} \rightarrow m_a^2 v_{ay}^2 = m_e^2 v_{f}^2 sin^2 \phi \, sin^2 \theta" />
+					<hr style="height:1pt; visibility:hidden;" />
+					<img src="https://latex.codecogs.com/gif.latex?m_e&space;v_i&space;=&space;m_e&space;v_{f}&space;\,&space;cos&space;\theta&space;&plus;m_a&space;v_{az}&space;\rightarrow&space;m_a^2&space;v_{az}^2&space;=&space;m_e^2&space;(v_i-v_{f}&space;cos&space;\theta)^2&space;\label{initial&space;final&space;m}" title="m_e v_i = m_e v_{f} \, cos \theta +m_a v_{az} \rightarrow m_a^2 v_{az}^2 = m_e^2 (v_i-v_{f} cos \theta)^2 \label{initial final m}" /> 
+				</div>
+				<hr style="height:1pt; visibility:hidden;" />
+				Adding the three equations leads to
+				<hr style="height:1pt; visibility:hidden;" />
+				<div align="center">
+					<hr style="height:1pt; visibility:hidden;" />
+					<img src="https://latex.codecogs.com/gif.latex?m_a^2&space;v_{a}^2&space;=&space;m_e^2&space;v_i^2&space;&plus;&space;m_e&space;v_f^2&space;-&space;2m_e^2&space;v_i&space;v_f&space;cos&space;\theta" title="m_a^2 v_{a}^2 = m_e^2 v_i^2 + m_e v_f^2 - 2m_e^2 v_i v_f cos \theta" />
+					<hr style="height:1pt; visibility:hidden;" />
+				</div>
+				We can substitute v<sub>a</sub> in the equation for the conservation of energy
+				<hr style="height:1pt; visibility:hidden;" />
+				<div align="center">
+					<img src="https://latex.codecogs.com/gif.latex?\frac{1}{2}m_e&space;{v_i}^2&space;=&space;\frac{1}{2}m_e&space;{v_f}^2&space;&plus;&space;\frac{1}{2}m_a&space;{v_a}^2&space;&plus;&space;\Delta&space;E_{loss}" title="\frac{1}{2}m_e {v_i}^2 = \frac{1}{2}m_e {v_f}^2 + \frac{1}{2}m_a {v_a}^2 + \Delta E_{loss}" />
+					<hr style="height:1pt; visibility:hidden;" />
+				</div>
+				and solve for the magnitude of the electron velocity after the collision
+				<div align="center">
+					<img src="https://latex.codecogs.com/gif.latex?v_i^2&space;-&space;\frac{m_e}{m_a}&space;{v_i}^2&space;-&space;\frac{2&space;\Delta&space;E_{loss}}{m_e}&space;=&space;\frac{m_e}{m_a}&space;{v_f}^2&space;&plus;&space;v_f^2&space;-&space;\frac{2&space;m_e}{m_a}v_i&space;v_f&space;cos&space;\theta" title="v_i^2 - \frac{m_e}{m_a} {v_i}^2 - \frac{2 \Delta E_{loss}}{m_e} = \frac{m_e}{m_a} {v_f}^2 + v_f^2 - \frac{2 m_e}{m_a}v_i v_f cos \theta" />
+					<hr style="height:1pt; visibility:hidden;" />
+				</div>
+				The general solution has a pretty complex form:
+				<hr style="height:1pt; visibility:hidden;" />
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?v_f&space;\sqrt{1&plus;\frac{m_e}{m_a}}&space;=&space;\frac{m_e}{m_a}&space;\frac{v_i}{\sqrt{1&plus;\frac{m_e}{m_a}}}&space;cos&space;\theta&space;&plus;&space;\sqrt{v_i^2&space;-&space;\frac{m_e}{m_a}&space;{v_i}^2&space;-&space;\frac{2&space;\Delta&space;E_{loss}}{m_e}}," title="v_f \sqrt{1+\frac{m_e}{m_a}} = \frac{m_e}{m_a} \frac{v_i}{\sqrt{1+\frac{m_e}{m_a}}} cos \theta + \sqrt{v_i^2 - \frac{m_e}{m_a} {v_i}^2 - \frac{2 \Delta E_{loss}}{m_e}}," /> </div>
+				<hr style="height:1pt; visibility:hidden;" />
+				but since m<sub>e</sub> &lt;&lt; m<sub>a</sub>, the equation can be simplified to
+				<hr style="height:1pt; visibility:hidden;" />
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?v_f&space;=&space;\sqrt{v_i^2&space;(1&space;-&space;\frac{2m_e}{m_a}&space;(1&space;-&space;cos&space;\theta))&space;-&space;\frac{2&space;\Delta&space;E_{loss}}{m_e}}." title="v_f = \sqrt{v_i^2 (1 - \frac{2m_e}{m_a} (1 - cos \theta)) - \frac{2 \Delta E_{loss}}{m_e}}." /> </div>
+				<hr style="height:1pt; visibility:hidden;" />
+				In general, the initial velocity of the electron can be in any direction <var class="vector">v<span>&#8407;</span></var><sub>i</sub> = ( <var class="vector">v<span>&#8407;</span></var><sub>i</sub>, α, β)
+				with z-axis, as shown in Fig. 2 By applying rotation matrices we get
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?\vec{v_i}'&space;=&space;R_y&space;(\alpha)&space;R_z(\beta)&space;\vec{v_i}&space;=&space;v_i&space;\begin{pmatrix}&space;cos&space;\alpha&space;&&space;0&space;&&space;-&space;sin&space;\alpha&space;\\&space;0&space;&&space;1&space;&&space;0&space;\\&space;sin&space;\alpha&space;&&space;0&space;&&space;cos&space;\alpha&space;\\&space;\end{pmatrix}&space;\begin{pmatrix}&space;cos&space;\beta&space;&&space;sin&space;\beta&space;&&space;0&space;\\&space;-sin&space;\beta&space;&&space;cos&space;\beta&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;1&space;\\&space;\end{pmatrix}&space;\begin{pmatrix}&space;sin&space;\alpha&space;\,&space;cos&space;\beta&space;\\&space;sin&space;\alpha&space;\,&space;sin&space;\beta&space;\\&space;cos&space;\alpha&space;\\&space;\end{pmatrix}&space;\label{rotation&space;matrix&space;a&space;and&space;b}" title="\vec{v_i}' = R_y (\alpha) R_z(\beta) \vec{v_i} = v_i \begin{pmatrix} cos \alpha & 0 & - sin \alpha \\ 0 & 1 & 0 \\ sin \alpha & 0 & cos \alpha \\ \end{pmatrix} \begin{pmatrix} cos \beta & sin \beta & 0 \\ -sin \beta & cos \beta & 0 \\ 0 & 0 & 1 \\ \end{pmatrix} \begin{pmatrix} sin \alpha \, cos \beta \\ sin \alpha \, sin \beta \\ cos \alpha \\ \end{pmatrix} \label{rotation matrix a and b}" /> </div>
+				Which simplifies down to:
+				<div align="center">
+					<hr style="height:1pt; visibility:hidden;" />
+					<img src="https://latex.codecogs.com/gif.latex?\vec{v_i}'&space;=&space;v_i&space;\begin{pmatrix}&space;0&space;\\&space;0&space;\\&space;1&space;\\&space;\end{pmatrix}" title="\vec{v_i}' = v_i \begin{pmatrix} 0 \\ 0 \\ 1 \\ \end{pmatrix}" /> 
+				</div>
+				<h3>2.3 Cross Sections</h3>
+				Collisional cross-section is the fundamental quantity to describe a collision. It is the probability for a given process to happen and is defined as the area around colliding particles within which they must meet in order to collide with each other. Therefore the cross-section is given in the units of area [m<sup>2</sup>].
+				<hr style="height:1pt; visibility:hidden;" />
+				To fully understand the meaning of the cross-section let's imagine an electron with  energy ε, traveling in the positive z-direction. The electron scatters off of an argon atom positioned at the coordinate beginning, as shown in Fig. ?. We can define impact parameter, b, as the perpendicular distance to the closest approach if the electron were undeflected. Then the differential size of the cross section is the area element in the plane of the impact parameter
+				<div align="center">
+					<hr style="height:1pt; visibility:hidden;" />
+					<img src="https://latex.codecogs.com/gif.latex?d&space;\sigma&space;=&space;b&space;\,&space;db&space;\,&space;d\phi" title="d \sigma = b \, db \, d\phi" />
+					<hr style="height:1pt; visibility:hidden;" />
+				</div>
+				After the collision, the electron will scatter at an angle θ. The differential angular range of the scattered electron is the solid angle element
+				<hr style="height:1pt; visibility:hidden;" />
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?d&space;\Omega&space;=&space;sin&space;\theta&space;\,&space;d\theta&space;\,&space;d\phi" title="d \Omega = sin \theta \, d\theta \, d\phi" /> </div>
+				The ratio dσ over dΩ is called a differential cross-section. The differential cross-section determines the area within which electron's path would need to pass in order for it to scatter into a range of angles dθ. We can calculate the integrated (total) cross-section by integrating differential cross-section over all possible angles (Reference:  M. A. Liebermann and A. J. Lichtenberg, Principles of Plasma Discharges and Marterials Processing (Academic Press, New York, 1994).):
+				<hr style="height:1pt; visibility:hidden;" />
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?\sigma&space;(\varepsilon)&space;=&space;\int{&space;\dfrac{d&space;\sigma}{d\Omega}&space;d\Omega}&space;=&space;\int{&space;\dfrac{d&space;\sigma}{d\Omega}&space;sin&space;\theta&space;\,&space;d\theta&space;\,&space;d\phi}&space;=&space;2\pi&space;\int_0^{\pi}{&space;\dfrac{d&space;\sigma}{d\Omega}&space;sin&space;\theta&space;\,&space;d\theta&space;}" title="\sigma (\varepsilon) = \int{ \dfrac{d \sigma}{d\Omega} d\Omega} = \int{ \dfrac{d \sigma}{d\Omega} sin \theta \, d\theta \, d\phi} = 2\pi \int_0^{\pi}{ \dfrac{d \sigma}{d\Omega} sin \theta \, d\theta }" /> </div>
+				<hr style="height:1pt; visibility:hidden;" />
+				Depending on the type of the collision, we distinguish between cross-sections for elastic and inelastic collisions. In this study, we considered cross-sections for elastic scattering of an electron off of a neutral argon atom, cross-sections for electron impact inelastic collisions in which argon atom was singly ionized, and electron impact excitation cross-sections from ground and first excited argon energy levels (4s states) to second excited energy levels (4p states).
+				<hr style="height:1pt; visibility:hidden;" />
+				Available experimental and theoretical cross-sections from the argon metastable (4s) levels are very sparse. Further more, even among available cross-sections there is a disagreement by a factor 2-4 between the results. In this study we used experimental cross-sections from Ref(A. Chutijan and D. C. Cartwright, Phys. Rev. A 23, 2178 (1981).
+				D. M. Filipovic, B. P. Marinkovic, V. Pejcev, and L. Vuskovic, J. Phys. B: At. Mol. Opt. Phys. 33, 677 (2000).) and calculated cross-sections from Ref. ( D. H. Madison, C. M. Maloney, and J. B. Wang, J. Phys. B: At. Mol. Opt. Phys. 31, 4833 (1998). A. Dasgupta, M. Blaha, and J. L. Guiliani, Phys. Rev. A 61, 012703 (1999).)
+				<h3>2.4 Interpolating Cross Sections</h3>
+				We started with 32 cross section files, each containing cross section values for a certain collision type for incident electron energies ranging from 0-100 eV in intervals of 2 eV. 51 values per file times 32 files becomes a total of 1632 values we have to parse. But it'd be inefficient to round all electrons to the closest value. So we linearly interplate all given data to obtain cross section values from 0-100 eV in intervals of 0.01 eV for a total of 328,032 vlaues. It would also be ridiculously ineffient to parse all initial data and create all these interpolated values each time we ran the simulation, so all 328,032 of these energy and corresponding cross section value pairs are saved into CSV files. Each time the script is launched, all 32 CSV files are read into 32 different dictionaries ech corresponding to the collision type with energy ϵ being the key and σ(ϵ) being the value. If the interpolated cross section files do not yet exist, the script will automatically generate the CSV files. The whole process takes about 30-45 seconds.
+				<h3>2.5 Collision Frequencies</h3>
+				<hr style="height:2pt; visibility:hidden;" />
+				Once we know the probabilities for the collisions, we need to find how often collisions happen. The number of collisions the electron undergoes in 1 s is proportional to the number of Ar atoms (more atoms means more collisions), cross sections (higher probability for collision means more collisions), and the speed or energy of the electron (more energy means more collisions). For that purpose, we defined a collision frequency:
+				<hr style="height:1pt; visibility:hidden;" />
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?\large&space;f&space;=&space;N_{A}\sigma(\epsilon)&space;\sqrt{\frac{2\epsilon}{m_{e}}}" title="\large f = N_{A}\sigma(\epsilon) \sqrt{\frac{2\epsilon}{m_{e}}}" /> </div>
+				<hr style="height:1pt; visibility:hidden;" />
+				where N<sub>A</sub> is the number of argon atoms per unit volume, σ(ε) is the cross-section, and v is the electron’s speed. The speed of the electron can be found from electron’s kinetic energy, ε = &frac12;mv<sup>2</sup>. The units of the collision frequency are Hz (s<sup>-1</sup>).
+				<hr style="height:1pt; visibility:hidden;" />
+				We can also find the total (cumulative) collision frequency as a sum of all collision frequencies:
+				<hr style="height:1pt; visibility:hidden;" />
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?\large&space;f_{total}&space;=&space;\sum_{j=1}^{n}{f_j}" title="\large f_{total} = \sum_{j=1}^{n}{f_j}" /> </div>
+				<hr style="height:1pt; visibility:hidden;" />
+				<div align="center"> <img src="https://latex.codecogs.com/gif.latex?\large&space;f_{null}(\epsilon)&space;=&space;Max[f_{total}(\epsilon)]&space;-&space;f_{total}(\epsilon)" title="\large f_{null}(\epsilon) = Max[f_{total}(\epsilon)] - f_{total}(\epsilon)" /> </div>
+				<hr style="height:1pt; visibility:hidden;" />
+				where n is the number of collision possibilities included in the model (i.e. f<sub>1</sub>&rarr;elastic scattering, f<sub>2</sub> &rarr; ionization, f<sub>3</sub>&rarr;excitation from level ground state to p<sub>1</sub>, and so forth). After interpolating all given cross sections and plugging them into eq. 4.1 we find that TCF<sub>MAX</sub> = 5.55·10<sup>9</sup> Hz at 19.44eV. At this exact energy, we make it so that the electron absolutely has to collide. Mathematicaly this means that at this energy f<sub>null</sub> = 0 Hz. As displayed in the table below, we see that null frequency quickly starts to increase the within just a few electron volts of the our peak.
+				<div align="center">
+					Figure 2.5: Collision Frequency as a function of electron energy for various collisions
+					<bk></bk>
+				</div>
+				<style type="text/css">
+					#wrap {
+					width:700px;
+					margin:-100 auto;
+					}
+					#left_col {
+					float:left;
+					width:500px;
+					}
+					#right_col {
+					float:left;
+					width:400px;
+					}
+				</style>
+				<div id="wrap">
+					<div id="left_col">
+						<ul class="columns" data-columns="2">
+							<li>Solid Green: Total CF for all Excitation Collisions</li>
+							<li>Dashed Blue: Elastic Collision Frequency</li>
+							<li>Solid Purple: Total Collision Frequency</li>
+						</ul>
+					</div>
+				</div>
+				<div id="right_col">
+					<ul class="columns" data-columns="2">
+						<li>Solid Green: Total CF for all Excitation Collisions</li>
+						<li>Solid Black: Null Collision Frequency</li>
+						<li>Solid Red: Null CF + Total CF</li>
+					</ul>
+				</div>
+				<div align="center">
+					<style type="text/css">
+						.tg  {border-collapse:collapse;border-spacing:0;}
+						.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+						.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+						.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+					</style>
+					<table class="tg" align="center">
+						<tr>
+							<th class="tg-0pky">Energy (eV)</th>
+							<th class="tg-0pky">elastic</th>
+							<th class="tg-0pky">sumExcite</th>
+							<th class="tg-0pky">ionization</th>
+							<th class="tg-0pky">total</th>
+							<th class="tg-0pky">null</th>
+							<th class="tg-0pky">tot+null</th>
+						</tr>
+						<tr>
+							<td class="tg-0pky"></td>
+							<td class="tg-0pky">&#215;10<sup>s</sup> s<sup>-1</sup></td>
+							<td class="tg-0pky">&#215;10<sup>s</sup> s<sup>-1</sup></td>
+							<td class="tg-0pky">&#215;10<sup>s</sup> s<sup>-1</sup></td>
+							<td class="tg-0pky">&#215;10<sup>s</sup> s<sup>-1</sup></td>
+							<td class="tg-0pky">&#215;10<sup>s</sup> s<sup>-1</sup></td>
+							<td class="tg-0pky">&#215;10<sup>s</sup> s<sup>-1</sup></td>
+						</tr>
+						<tr>
+							<td class="tg-0pky">0</td>
+							<td class="tg-0pky">0</td>
+							<td class="tg-0pky">0</td>
+							<td class="tg-0pky">0</td>
+							<td class="tg-0pky">0</td>
+							<td class="tg-0pky">3.18</td>
+							<td class="tg-0pky">3.18</td>
+						</tr>
+						<tr>
+							<td class="tg-0pky">5</td>
+							<td class="tg-0pky">0.896</td>
+							<td class="tg-0pky">0.001</td>
+							<td class="tg-0pky">0</td>
+							<td class="tg-0pky">0.897</td>
+							<td class="tg-0pky">2.284</td>
+							<td class="tg-0pky">3.18</td>
+						</tr>
+						<tr>
+							<td class="tg-0pky">10</td>
+							<td class="tg-0pky">2.815</td>
+							<td class="tg-0pky">0.002</td>
+							<td class="tg-0pky">0</td>
+							<td class="tg-0pky">2.817</td>
+							<td class="tg-0pky">0.363</td>
+							<td class="tg-0pky">3.18</td>
+						</tr>
+						<tr>
+							<td class="tg-0pky">14</td>
+							<td class="tg-0pky">3.171</td>
+							<td class="tg-0pky">0.01</td>
+							<td class="tg-0pky">0</td>
+							<td class="tg-0pky">3.18</td>
+							<td class="tg-0pky">0</td>
+							<td class="tg-0pky">3.18</td>
+						</tr>
+						<tr>
+							<td class="tg-0pky">15</td>
+							<td class="tg-0pky">3.149</td>
+							<td class="tg-0pky">0.019</td>
+							<td class="tg-0pky">0.002</td>
+							<td class="tg-0pky">3.171</td>
+							<td class="tg-0pky">0.009</td>
+							<td class="tg-0pky">3.18</td>
+						</tr>
+						<tr>
+							<td class="tg-0pky">20</td>
+							<td class="tg-0pky">2.585</td>
+							<td class="tg-0pky">0.099</td>
+							<td class="tg-0pky">0.167</td>
+							<td class="tg-0pky">2.85</td>
+							<td class="tg-0pky">0.33</td>
+							<td class="tg-0pky">3.18</td>
+						</tr>
+						<tr>
+							<td class="tg-0pky">25</td>
+							<td class="tg-0pky">2.068</td>
+							<td class="tg-0pky">0.145</td>
+							<td class="tg-0pky">0.383</td>
+							<td class="tg-0pky">2.596</td>
+							<td class="tg-0pky">0.584</td>
+							<td class="tg-0pky">3.18</td>
+						</tr>
+					</table>
+					<font size="2"> Collision Frequency Values for Various Collision Types</font> 
+				</div>
+				<h3>2.6 Calculating Time of Flight</h3>
+				Given the plasma’s particle density and the electrons energy, it’s time of flight (TOF) can be calculated. Here we define our TOF to be the time interval between collisions. We calculate our TOF as Δt in equations 3.1 - 3.2 as a function of Total Collision Frequency (TCF) and r, a randomly generated float between 0 and 1. Unfortunately we run into an issue at first propagation. Becuse initial energy is set at 0 eV, TCF = 0. This is corrected by applying a condition such that if the electron has less than 0.01eV, it’s Δt will be exactly 100 nanoseconds.
+				<hr style="height:1pt; visibility:hidden;" />
+				After moving the electron in this time according to the equations of motion, you should calculate the nepw position (x and y) and the new velocity v. We calculate the magnitude of the velocity as v = v<sub>x</sub><sup>2</sup> + v<sub>y</sub><sup>2</sup>. Since the only force acting upon the electron is the Coulomb force F = qE, all the work done by this force will be converted into electron’s kinetic energy and is calculated using the standard E = &frac12;mev<sup>2</sup> where v is the magnitude of the electron’s velocity. Up until the 2 first collision the electron will only have a v<sub>x</sub> component. To determine if the electron collided or not, first we determine its Maximum Total collision frequency and make the assumption that at that energy, the electron has to collide whether it be elastically or inelastic. For every other energy, there will be a null collision frequency (NCF) greater than zero.
+				<div align="center">
+					<img src="https://latex.codecogs.com/gif.latex?\large&space;E&space;>&space;0.01\:eV:&space;dt&space;=&space;\frac{-\log(1-r)}{TCF}" title="\large E > 0.01eV: dt = \frac{-\log(1-r)}{TCF}" />
+					<hr style="height:1pt; visibility:hidden;" />
+					<img src="https://latex.codecogs.com/gif.latex?\large&space;E&space;<=&space;0.01\:eV:&space;dt&space;=&space;10^{-7}&space;s" title="\large E <= 0.01eV: dt = 10^{-7} s" /> 
+				</div>
+				<div align="center"> <font size="2"> Figure 4.1: Probabilities for an electron with 25 eV.</font> </div>
+				<h3>3. Code</h3>
+				<hr style="height:1pt; visibility:hidden;" />
+				As can be seen in Figure 3.1 script was split into two main processes: running the simulation and plotting subsequent results. The former requires many more requisites: in order to create, propagate, and collide the electron, we first need to determine which collision the electron will experience any at all. Probablities for each collision type will depend on the electrons energy just before impact. Our simulation is accurate up to two decimal points for electron energy in units of electron volts. Unfortuantely we run into an obstacle since the cross sections provided are given in multiples of two. By running a quick script to linearly interpolate these cross sections given in the DAT files we overcome this obstacle. Plotting the results is a bit more straightforward. Specific Python libraries allow us to quickly create a scatterplot for Energy Distribution as well as the locations of the collisions exprienced. One could even sacrifice computational runtime and plot the path experienced by every single electron.
+				<h3>4. Results</h3>
+				<h3>4.1 Electron Energy Distribution Function </h3>
+				<h3>Initial Conditions/Constraints</h3>
+				<li>Population Density N<sub>A</sub> = 10<sup>21</sup>atoms/cm<sup>3</sup></li>
+				<li>Maximum electron energy of 100 eV</li>
+				<h3>Overall Trends</h3>
+				<li>Electron Energy Distribution Function peaked between 5 - 7 eV.</li>
+				<li>Fell after 10 - 15 eV depending on the electric field strength.</li>
+				<h3>Binning</h3>
+				<li>Script parses through list of all energies experienced at any point</li>
+				<li>Creates bins in intervals of 1 electron volt</li>
+				<h3>4.2 Results Comparison to Similar Studies</h3>
+				<hr style="height:1pt; visibility:hidden;" />
+				We compared our results with with similar studies and found that with more propagations and more electrons, the our study begins to align. From the figures below, it should be noted that the tail of the EEDF function begins to smooth out around 10,000 electrons.
+				<h3>4.3 Applications and Areas for Improvement</h3>
+				By continuing to study these properties of plasma, we are able to possibly improve the plasma etching process.This research is ongoing and next steps include but are not limited to
+				<li>Improve code efficiency and runtime</li>
+				<li>Reduce margins or error</li>
+				<h3>References</h3>
+				<p>[1] G. J. M. Hagelaar and L. C. Pitchford, Plasma Sources Sci. Technol. 14, 722 (2005).</p>
+				<p>[2] J. Boffard, R. O. Jung, C. C. Lin, and A. E. Wendt, Plasma Sources Sci. Technol. 19, 065001 (2010).</p>
+				<hr style="height:1pt; visibility:hidden;" />
+		  </div>
+		</div>
+<!-- footer -->
+		<section class="hero is-dark is-bold hidden-print">
+			<div class="is-7 has-text-grey" style="position: absolute; top: 0; right: 1em;">
+			</div>
+			<div class="hero-body">
+				<div class="container">
+					<div align="center">
+						<p style="text-decoration:none">For any questions, feedback, or concerns,</p>
+						<p style="text-decoration:none">reach out to me at ivan.sepulveda2014@gmail.com</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>
