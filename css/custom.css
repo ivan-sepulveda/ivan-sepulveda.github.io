@@ -132,18 +132,7 @@ border-radius: 50%;
 .fa:hover {
 opacity: 0.7;
 }
-.fa-linkedin:before {
-	background:transparent;
-	color: black;
-}
-.fa-medium:before {
-	background:transparent;
-	color: black;
-}
-.fa-github {
-background: #ffffff;
-color: black;
-}
+
 .right{
 float:right;
 }
