@@ -3698,7 +3698,7 @@ a.box:active {
     font-size: 1.25rem
 }
 
-.file.is-medium .file-icon {
+.file.is-medium .file-icon .fa {
     font-size: 21px
 }
 
@@ -3706,7 +3706,7 @@ a.box:active {
     font-size: 1.5rem
 }
 
-.file.is-large .file-icon {
+.file.is-large .file-icon .fa {
     font-size: 28px
 }
 
@@ -3747,19 +3747,19 @@ a.box:active {
     width: 1.5em
 }
 
-.file.is-boxed .file-icon {
+.file.is-boxed .file-icon .fa {
     font-size: 21px
 }
 
-.file.is-boxed.is-small .file-icon {
+.file.is-boxed.is-small .file-icon .fa {
     font-size: 14px
 }
 
-.file.is-boxed.is-medium .file-icon  {
+.file.is-boxed.is-medium .file-icon .fa {
     font-size: 28px
 }
 
-.file.is-boxed.is-large .file-icon {
+.file.is-boxed.is-large .file-icon .fa {
     font-size: 35px
 }
 
@@ -3870,7 +3870,7 @@ a.box:active {
     width: 1em
 }
 
-.file-icon{
+.file-icon .fa {
     font-size: 14px
 }
 
@@ -7231,7 +7231,7 @@ a.panel-block:hover, label.panel-block:hover {
     margin-right: .75em
 }
 
-.panel-icon {
+.panel-icon .fa {
     font-size: inherit;
     line-height: inherit
 }
