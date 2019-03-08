@@ -133,12 +133,12 @@ border-radius: 50%;
 opacity: 0.7;
 }
 .fa-linkedin {
-background: #FFFFFF;
-color: black;
+	background:transparent;
+	color: black;
 }
 .fa-medium {
-background: #ffffff;
-color: black;
+	background:transparent;
+	color: black;
 }
 .fa-github {
 background: #ffffff;
