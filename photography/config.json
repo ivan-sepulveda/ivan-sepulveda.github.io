@@ -266,33 +266,5 @@
       "compressed": false,
       "placeholder_path": "./photos/Mockups/photoframe.placeholder.png"
     }
-  ],
-  "Portraits": [
-    {
-      "width": 1500,
-      "height": 993,
-      "path": "./photos/Portraits/Vertical+Garden+-+Moody+AF.jpg",
-      "compressed_path": "./photos/Portraits/Vertical+Garden+-+Moody+AF.min.jpg",
-      "compressed": false,
-      "placeholder_path": "./photos/Portraits/Vertical+Garden+-+Moody+AF.placeholder.jpg"
-    }
-  ],
-  "San Francisco": [
-    {
-      "width": 2500,
-      "height": 1406,
-      "path": "./photos/San Francisco/35487165102_7d1e52116a_o.jpg",
-      "compressed_path": "./photos/San Francisco/35487165102_7d1e52116a_o.min.jpg",
-      "compressed": false,
-      "placeholder_path": "./photos/San Francisco/35487165102_7d1e52116a_o.placeholder.jpg"
-    },
-    {
-      "width": 750,
-      "height": 497,
-      "path": "./photos/San Francisco/26395270316_94b6bd55db_o.jpg",
-      "compressed_path": "./photos/San Francisco/26395270316_94b6bd55db_o.min.jpg",
-      "compressed": false,
-      "placeholder_path": "./photos/San Francisco/26395270316_94b6bd55db_o.placeholder.jpg"
-    }
   ]
 }
