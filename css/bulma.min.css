@@ -2069,6 +2069,7 @@ a.box:active {
     color: #fff
 }
 
+
 .button.is-link.is-focused, .button.is-link:focus {
     border-color: transparent;
     color: #fff
