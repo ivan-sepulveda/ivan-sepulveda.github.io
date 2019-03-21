@@ -1,57 +1,209 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>{{ site.title }}</title>
-    {% include favicon.html %}
-    <link rel="stylesheet" type="text/css" href="/photography/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="/photography/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/photography/css/zoom.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
-    <script src="https://use.fontawesome.com/4c9066f1a6.js"></script>
-  </head>
-  <body>
-    <div id="container">
-      <!--------------- YOUR NAME OVER HERE -------------->
-      <h2 class="header">{{ site.full_name }}</h2>
-      <div id="gallery">
-      </div>
-    </div>
-    <a href="https://github.com/andyzg/gallery"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
-    <div class="footer">
-      <div class="links">
-        <a id="instagram" class="links__icon" href="https://www.instagram.com/{{ site.instagram }}">
-          <span class="view-ig"> View {{ site.full_name }}'s Instagram </span>
-          <i class="fa fa-instagram fa-lg"></i>
-        </a>
-      </div>
-    </div>
-  </body>
-  <script
-    src="https://code.jquery.com/jquery-3.2.1.js"
-    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-beta.2/lazyload.js"></script>
-  <script src="/photographyjs/transition.js"></script>
-  <script src="/photographyjs/zoom.min.js"></script>
-  <script src="/photographyjs/gallery.js"></script>
-  <script>
-    var COLUMNS = 'columns';
-    var ROWS = 'rows';
-    var SQUARES = 'squares';
+	<!-- head -->
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127099913-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			
+			function gtag() {
+			    dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			
+			gtag('config', 'UA-127099913-1');
+		</script>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Ivan Sepulveda</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+		<link rel="stylesheet" href="/css/bulma.min.css">
+		<link rel="stylesheet" href="/css/all.min.css">
+		<link rel="stylesheet" href="/css/highlight.css">
+		<link rel="stylesheet" href="/css/custom.css">
+		
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    var columns = COLUMNS;
-    var rows = ROWS;
-    var squares = SQUARES;
+/* Create two equal columns that floats next to each other */
+.twoThirdsColumn {
+  float: left;
+  width: 60%;
+  padding: 5px;
+  height: auto; /* Should be removed. Only for demonstration */
+}
+	
+	.twoThirdsColumnRgiht {
+  float: right;
+  width: 60%;
+  padding: 5px;
+  height: auto; /* Should be removed. Only for demonstration */
+}
+	
+		.oneThirdColumnLeft {
+  float: left;
+  width: 40%;
+  padding: 5px;
+  height: auto; /* Should be removed. Only for demonstration */
+}
 
-    var layoutStyle = {{ site.layout_style }};
 
-    var configuration = {
-      spacing: {{ site.spacing }},
-      shuffle: {{ site.shuffle }},
-      columns: {{ site.columns }},
-      maxHeight: {{ site.max_height }}
-    };
-  </script>
-  <script src="/photography/js/script.js"></script>
-  {% include ga.html %}
+.oneThirdColumn {
+  float: left;
+  width: 40%;
+  padding: 5px;
+  height: auto; /* Should be removed. Only for demonstration */
+	
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+	height: auto;
+	width: auto;
+
+	}
+	
+		.moveimage25{
+    position: relative;
+    top: 25px;
+}
+	
+	.moveRight50{
+		left: 500px;
+	}
+	
+</style>
+	</head>
+	<!-- body -->
+	<body>
+		<!-- header-->
+		<section class="hero is-dark is-bold hidden-print">
+			<div class="is-7 has-text-grey" style="position: absolute; top: 0; right: 1em;">
+			</div>
+			<div class="hero-body">
+				<div class="container">
+					<h1 class="title" align="left">
+						Ivan Sepulveda
+					</h1>
+					<nav class="level">
+						<div class="level-left">
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted  is-outlined " href="/index.html">
+								<i class="fas fa-home"></i>&nbsp;Home
+
+								</a>
+							</div>
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted  is-inverted is-outlined " href="https://static1.squarespace.com/static/55388145e4b07179e5b90563/t/5c11bf9e03ce6403d4c721cf/1544667038924/Ivan+Sepulveda%27s+Resume+12.18.pdf" target="_blank">
+								<i class="fas fa-file-alt"></i>&nbsp;Resume/CV
+								</a>
+							</div>
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted  is-inverted is-outlined " href="http://www.iesepulveda.com/current-and-completed" target="_blank">
+								<i class="fas fa-project-diagram"></i>&nbsp;Projects
+								</a>
+							</div>
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted  is-inverted " href="http://www.iesepulveda.com/writing-photography" target="_blank">
+								<i class="fas fa-book fa-camera"></i>&nbsp;Writing &amp; Photography
+								</a>
+							</div>
+						</div>
+						<div class="level-right">
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted is-outlined" href="https://www.linkedin.com/in/ivansepulveda/" target="_blank">
+								<i class="fab fa-linkedin"></i>&nbsp;LinkedIn
+								</a>
+							</div>
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted is-outlined" href="https://github.com/ivan-sepulveda" target="_blank">
+								<i class="fab fa-github-alt"></i>&nbsp;Github
+								</a>
+							</div>
+							<div class="level-item">
+								<a class="button is-fullwidth is-dark is-inverted is-outlined" href="https://medium.com/@ivanthequant" target="_blank">
+								<i class="fab fa-medium"></i>&nbsp;Medium
+								</a>
+							</div>
+						</div>
+					</nav>
+				</div>
+				<!-- end container -->
+			</div>
+			<!-- end hero -->
+		</section>
+		<section class="section">
+		</section>
+		<div class="container">
+			<div class="content" align="left">
+				
+				
+				
+				<h2>San Francisco</h2>
+<div class="row" align="right">
+  <div class="twoThirdsColumn" style="background-color:transparent;">
+				<img src="photos/San Francisco/PalaceOfTheFineArts.jpg" height="50" width="auto" alt="Error occured while trying to display image." class="float-center">
+  </div>
+  <div class="oneThirdColumn" style="background-color:transparent;">
+	  <p>
+		  				<img src="photos/San Francisco/GrandViewPark.jpg" width="250" alt="Error occured while trying to display image." class="float-center" >
+
+	  </p>
+<p>
+	  	  				<img class="float-center moveimage25" src="photos/San Francisco/Alcatraz.jpg" width="250" alt="Error occured while trying to display image."  >
+	  </p>
+
+
+  </div>
+</div>
+								<br>
+				<br>
+				<div class="row" align="left">
+  <div class="oneThirdColumnLeft" style="background-color:transparent;">
+	  <p>
+		  <img src="photos/San Francisco/StairsToGrandViewPark.jpg" width="300" alt="Error occured while trying to display image." class="float-center" >
+	  </p>
+	  <p>		
+		  <img class="float-center moveimage25" src="photos/San Francisco/WaveOrgan.jpg" width="300" alt="Error occured while trying to display image."  >
+	  </p>
+  </div>
+					
+					  <div class="twoThirdsColumnRgiht" style="background-color:transparent;">
+		  <img src="photos/San Francisco/TankHill.jpg" width="auto" alt="Error occured while trying to display image." class="float-center" >
+  </div>
+</div>
+
+
+				
+				
+
+				<br/>
+			</div>
+		</div>
+		<div>
+		</div>
+		<div>
+		</div>
+		<!-- footer -->
+		<section class="hero is-dark is-bold hidden-print">
+			<div class="is-7 has-text-grey" style="position: absolute; top: 0; right: 1em;">
+			</div>
+			<div class="hero-body">
+				<div class="container">
+					<div align="center">
+						<p style="text-decoration:none">For any questions, feedback, or concerns,</p>
+						<p style="text-decoration:none">reach out to me at ivan.sepulveda2014@gmail.com</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
 </html>
